@@ -1,0 +1,39 @@
+1.
+
+create or replace procedure online3(dept1 emp.deptno%type)
+
+as 
+    DEPT number;
+
+begin
+
+DEPT := 1 + dept1/100;
+
+update emp set sal=sal*DEPT where deptno=dept1;
+
+end;
+/
+
+execute online3(10);
+
+
+
+2.
+
+create or replace procedure changingL(loc1 dept.loc%type, loc2 dept.loc%type )
+     
+AS
+ dept1 dept.deptno%type ;
+ dept2 dept.deptno%type ;
+BEGIN
+
+select deptno into dept1 from dept where loc=loc1;
+select deptno into dept2 from dept where loc=loc2;
+
+update dept set loc=loc2 where deptno=dept1;
+update dept set loc=loc1 where deptno=dept2;
+END;
+/
+
+execute changingl('BOSTAN','LOS');
+

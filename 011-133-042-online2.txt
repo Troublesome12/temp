@@ -1,0 +1,57 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+    account1  varchar2(4); 
+    account2  varchar2(4);
+    balance1  NUMBER;
+    balance2  NUMBER;
+    transfer  NUMBER;
+    
+      
+BEGIN
+  
+     select account_no into account1 from account where account_no=0001;
+     select account_no into account2 from account where account_no=0002;
+     
+     select balance into balance1 from account where account_no=account1;
+          
+     select balance into balance2 from account where account_no=account2;
+    
+      
+      transfer := 100;
+      
+  
+      -- Transfer account balance account 1 to account 2
+      IF transfer > balance1
+      THEN
+         DBMS_OUTPUT.PUT_LINE ('account1 cannt transfer the money');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE ('account1 can transfer the money');
+         balance1 := balance1 - transfer;
+         balance2 := balance2 + transfer;
+         UPDATE account set balance=balance1 where account_no=account1;     
+         UPDATE account set balance=balance2 where account_no=account2;
+      END IF;
+      
+      
+      -- Transfer account balance account 2 to account 1
+      
+      /*
+      transfer := 100;
+      
+     
+      IF transfer > balance2
+      THEN
+         DBMS_OUTPUT.PUT_LINE ('account2 cannt transfer the money');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE ('account2 can transfer the money');
+         balance1 := balance1 + transfer;
+         balance2 := balance2 - transfer;
+         UPDATE account set balance=balance1 where account_no=account1;     
+         UPDATE account set balance=balance2 where account_no=account2;
+      END IF;
+      */
+  
+  
+END;
+/
